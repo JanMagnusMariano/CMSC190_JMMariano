@@ -1,7 +1,0 @@
-# Bulky package files #
-/code/node_modules
-
-# Private files #
-/code/*.env
-/code/Procfile
-
