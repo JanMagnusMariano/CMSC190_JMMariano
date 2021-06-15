@@ -1,0 +1,7 @@
+# Bulky package files #
+/code/webserver/node_modules/
+
+# Private files #
+/code/webserver/*.env
+/code/webserver/Procfile
+
