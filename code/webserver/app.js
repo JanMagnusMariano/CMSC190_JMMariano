@@ -5,8 +5,6 @@ const cors = require('cors');
 
 const firebase = require('firebase-admin');
 
-// Change this to env?
-//const serviceAccount = require('./weather-anywhere-jmmariano-firebase-adminsdk-2rf1e-4024a5cf53.json');
 require('dotenv').config();
 
 firebase.initializeApp({

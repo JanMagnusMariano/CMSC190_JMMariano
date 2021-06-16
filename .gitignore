@@ -1,7 +1,55 @@
-# Bulky package files #
+# Bulky package files in webserver #
 /code/webserver/node_modules/
 
-# Private files #
+# Private files in webserver #
 /code/webserver/*.env
 /code/webserver/Procfile
 
+# Files in wifi_p2p #
+
+/code/mobile_app/wifi_p2p/.DS_Store
+/code/mobile_app/wifi_p2p/.dart_tool/
+
+/code/mobile_app/wifi_p2p/.packages
+/code/mobile_app/wifi_p2p/.pub/
+
+/code/mobile_app/wifi_p2p/build/
+
+# Files in sp_phase_two #
+
+/code/mobile_app/sp_phase_two/*.class
+/code/mobile_app/sp_phase_two/*.log
+/code/mobile_app/sp_phase_two/*.pyc
+/code/mobile_app/sp_phase_two/*.swp
+/code/mobile_app/sp_phase_two/.DS_Store
+/code/mobile_app/sp_phase_two/.atom/
+/code/mobile_app/sp_phase_two/.buildlog/
+/code/mobile_app/sp_phase_two/.history
+/code/mobile_app/sp_phase_two/.svn/
+
+# IntelliJ related
+/code/mobile_app/sp_phase_two/*.iml
+/code/mobile_app/sp_phase_two/*.ipr
+/code/mobile_app/sp_phase_two/*.iws
+/code/mobile_app/sp_phase_two/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+/code/mobile_app/sp_phase_two/**/doc/api/
+/code/mobile_app/sp_phase_two/.dart_tool/
+/code/mobile_app/sp_phase_two/.flutter-plugins
+/code/mobile_app/sp_phase_two/.flutter-plugins-dependencies
+/code/mobile_app/sp_phase_two/.packages
+/code/mobile_app/sp_phase_two/.pub-cache/
+/code/mobile_app/sp_phase_two/.pub/
+/code/mobile_app/sp_phase_two/build/
+
+# Web related
+/code/mobile_app/sp_phase_two/lib/generated_plugin_registrant.dart
+
+# Exceptions to above rules.
+/code/mobile_app/sp_phase_two/!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
