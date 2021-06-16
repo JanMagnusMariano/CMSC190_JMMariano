@@ -22,7 +22,7 @@ FIREBASE_BUCKET is the url of your Firebase project's storage, without the gs://
 FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, FIREBASE_PROJECT_ID can all be found in the Firebase Admin SDK .json file
 ```
 
-5. Run the web server using the command
+5. Run the web server on localhost with port 5000 using the command : 
 ```
 nodejs app.js
 ```
@@ -32,3 +32,15 @@ nodejs app.js
 7. Optionally, you can deploy the webserver using Heroku by following the instructions at `https://devcenter.heroku.com/articles/git`
 
 # Mobile Application Set-up
+## Prerequisites
+* Flutter 1.22.5
+* IDE of choice (preferably Android Studio or IntelliJ IDEA)
+## Instructions
+1. Install required Flutter version from link `https://flutter.dev/docs/development/tools/sdk/releases`
+2. Set up the SDK with your preferred IDE by following the instructions at the official Flutter page `https://flutter.dev/docs/get-started/install`
+3. Navigate to the `mobile_app/sp_phase_two` directory and choose between different commands :
+`flutter run` to run the mobile app in your machine's emulator or an attached external device
+`flutter build apk --debug` to build an APK file of the application
+`flutter install` to install the built APK file to your machine's emulator or attached external device
+
+Note that a copy of the generated APK file can be found by navigating to the `sp_phase_two/build/app/outputs/apk/debug` folder
