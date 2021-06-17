@@ -27,6 +27,7 @@ dependencies:
   flutter_spinkit: ^4.1.2
   image_picker: 0.6.2
   flare_flutter: 2.0.6
+  flutter_launcher_icons: 0.8.1
 
   # Software helper libraries
   intl: ^0.16.1
@@ -75,6 +76,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  image_path: "lib/assets/images/icon.png" 
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

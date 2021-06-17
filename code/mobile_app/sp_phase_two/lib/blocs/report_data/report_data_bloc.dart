@@ -35,17 +35,21 @@ class ReportDataBloc extends Bloc<ReportDataEvent, ReportDataState> {
     if (event is SubmitReport) {
       yield* _mapSubmitReportToState(event);
     } else if (event is FetchOlderReport && !_hasReachedMax(state)) {
+      yield ReportLoading();
       yield* _mapFetchOlderReportToState(event, state);
     } else if (event is FetchNewerReport) {
+      yield ReportLoading();
       yield await _mapFetchNewerReportToState(event, state);
       isFetching = false;
     }
   }
 
   Stream<ReportDataState> _mapSubmitReportToState(SubmitReport event) async* {
+    yield ReportLoading();
     try {
       await RethinkWeather().submitReport(event.imageFile, event.location, event.description);
       print('Successfully submitted');
+      yield ReportEmpty();
     } catch (_) {
       print('Error in submitting report');
     }
@@ -102,7 +106,6 @@ class ReportDataBloc extends Bloc<ReportDataEvent, ReportDataState> {
 
     print('city $_cityName');
     List<dynamic> _reports = _toReturn['reports'];
-
 
     List<Report> newReports = await CacheServices().fetchReportBatch(id, _cityName, 10);
     List<Report> reportAppend = new List<Report>();

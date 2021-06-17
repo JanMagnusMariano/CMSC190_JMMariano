@@ -11,7 +11,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:requestLegacyExternalStorage="true"
-        android:label="spphasetwo"
+        android:label="Anywhere Forecast"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

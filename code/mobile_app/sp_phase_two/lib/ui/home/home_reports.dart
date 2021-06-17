@@ -10,6 +10,9 @@ import '../../blocs/report_data/bloc.dart';
 
 import 'components/report_post.dart';
 
+import '../global_widgets.dart';
+
+
 // temporary
 import '../../utils/cache_services.dart';
 import '../../models/report_model.dart';
@@ -34,16 +37,34 @@ class _HomeReportsState extends State<HomeReports> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReportDataBloc, ReportDataState>(
+      buildWhen: (ReportDataState prev, ReportDataState curr) {
+        if (curr is ReportEmpty) {
+          _reportBloc.add(FetchNewerReport(location: SessionServices().currCityRaw));
+        } else if (curr is ReportLoading) {
+          GlobalWidgets.loadingOverlay(context);
+          return false;
+        } else if (curr is ReportFetched) {
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            if (Navigator.of(context).canPop()) Navigator.pop(context, 'dialog');
+          });
+        }
+
+        return true;
+      },
       // ignore: missing_return
       builder: (context, state) {
-        if (state is ReportEmpty) {
-          print('heh');
-          _reportBloc.add(FetchNewerReport(location: SessionServices().currCityRaw));
-          return Container();
+        print(state);
+        if (state is ReportEmpty || state is ReportLoading) {
+          if (state is ReportEmpty) {
+            _reportBloc.add(FetchNewerReport(location: SessionServices().currCityRaw));
+          }
+
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: ListView(),
+          );
         }
         else if (state is ReportFetched) {
-          print('here');
-
           if (state.reports.isEmpty) {
             return Center(child: Text('No posts'));
           }

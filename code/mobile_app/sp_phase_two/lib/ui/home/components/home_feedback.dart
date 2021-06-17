@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,8 @@ import '../../../blocs/report_data/bloc.dart';
 import '../../../utils/session_services.dart';
 import 'weather_widgets.dart';
 import '../../authenticate/components/auth_appbar.dart';
+
+import '../../global_widgets.dart';
 
 class HomeFeedback extends StatefulWidget {
   @override
@@ -34,8 +37,6 @@ class _HomeFeedbackState extends State<HomeFeedback> {
       return;
     }
 
-    print(tmpFile.path);
-
     BlocProvider.of<ReportDataBloc>(context).add(SubmitReport(
       imageFile: File(tmpFile.path),
       location: SessionServices().currCityRaw,
@@ -51,23 +52,37 @@ class _HomeFeedbackState extends State<HomeFeedback> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          WeatherWidgets.customButton(selectImage , 'Select Image'),
-          showImage(),
-          WeatherWidgets.customButton(submitImage , 'Submit Image'),
-        ],
+      body: BlocBuilder<ReportDataBloc, ReportDataState>(
+        buildWhen: (ReportDataState prev, ReportDataState curr) {
+          if (prev is ReportEmpty && curr is ReportLoading) {
+            GlobalWidgets.loadingOverlay(context);
+          } else if (prev is ReportLoading && curr is ReportEmpty) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              if (Navigator.of(context).canPop()) Navigator.pop(context, 'dialog');
+              Navigator.pop(context);
+            });
+          }
+
+          return true;
+        },
+        builder: (context, state) {
+          return Column(
+            children: <Widget>[
+              WeatherWidgets.customButton(selectImage , 'Select Image'),
+              showImage(),
+              WeatherWidgets.customButton(submitImage , 'Submit Image'),
+            ],
+          );
+        }
       ),
-    );
-    // return Container(
-      // Column(
-      //   children: <Widget>[
-      //     WeatherWidgets.customButton(selectImage , 'Select Image'),
-      //     showImage(),
-      //     WeatherWidgets.customButton(submitImage , 'Submit Image'),
-      //   ],
+      // body: Column(
+        // children: <Widget>[
+        //   WeatherWidgets.customButton(selectImage , 'Select Image'),
+        //   showImage(),
+        //   WeatherWidgets.customButton(submitImage , 'Submit Image'),
+        // ],
       // ),
-    // );
+    );
   }
 
   Widget showImage() {
